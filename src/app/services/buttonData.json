@@ -1,0 +1,24 @@
+{
+    "array" : [
+        {
+          "iconSrc": "/assets/icons/tomate.png",
+          "imgSrc": "/assets/ingredients/tomatel.png",
+          "audioSrc": "/assets/audio/tomate.wav"
+        },
+        {
+            "iconSrc": "/assets/icons/huevo.png",
+            "imgSrc": "/assets/ingredients/huevol.png",
+            "audioSrc": "/assets/audio/huevo duro.wav"
+        },
+        {
+            "iconSrc": "/assets/icons/milanesa.png",
+            "imgSrc": "/assets/ingredients/milanesal.png",
+            "audioSrc": "/assets/audio/milanesa.wav"
+        },
+        {
+            "iconSrc": "/assets/icons/pan.png",
+            "imgSrc": "/assets/ingredients/panl.png",
+            "audioSrc": "/assets/audio/pan.wav"
+        }
+    ]
+}

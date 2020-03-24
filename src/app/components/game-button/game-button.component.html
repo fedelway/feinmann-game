@@ -1,0 +1,7 @@
+<div class="column is-half-touch is-half-desktop">
+    <button [ngClass]="'button is-large is-fullwidth is-' + this.color" style="font-size: 2em;" [disabled]="!this.enabled" (click)="onClick()">
+        <span class="icon is-large">
+            <img [src]="this.imgSrc"/>
+        </span>
+    </button>
+</div>
