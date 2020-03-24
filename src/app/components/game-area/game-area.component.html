@@ -1,10 +1,10 @@
-<ng-container *ngIf="!this.gameService.gameState.gameStarted">
+<ng-container *ngIf="!this.gameStarted">
     <button class="button" (click)="onClickStart()">
         Start
     </button>
 </ng-container>
 
-<div [hidden]="!this.gameService.gameState.gameStarted">
+<div [hidden]="!this.gameStarted">
     <div class="columns">
         <div class="column is-two-thirds">
             <figure class="image">
@@ -12,7 +12,7 @@
             </figure>
         </div>
         <div class="column is-one-third">
-            <ng-container *ngFor="let item of gameService.gameState.currentProgress">
+            <ng-container *ngFor="let item of this.currentProgress">
                 <div>
                     <figure class="image">
                         <img [src]="btnService.buttons[item].imgSrc"/>

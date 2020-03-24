@@ -3,17 +3,20 @@ import GameState from './game-state-';
 import { ButtonService } from './button.service';
 import FeinmannSound from './FeinmannSound';
 import { FaceService } from './face.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GameService {
 
-  public gameState :GameState = new GameState();
+  private gameState :GameState = new GameState();
   
   private newGameSound :FeinmannSound;
   private gameOverSound :FeinmannSound;
   private newRoundSound :FeinmannSound;
+
+  public gameStateSubject: BehaviorSubject<GameState>;
 
   private isFirstRound = false;
 
@@ -21,9 +24,14 @@ export class GameService {
     this.newGameSound = new FeinmannSound('assets/audio/me haces el sanguchito.wav',faceService);
     this.gameOverSound = new FeinmannSound('assets/audio/no la verda que no.wav',faceService);
     this.newRoundSound = new FeinmannSound('assets/audio/notegustaasi.wav',faceService);
+    this.gameStateSubject = new BehaviorSubject<GameState>(this.gameState);
   }
 
-  public sayRecipe(){
+  private notifyGameStateChange(){
+    this.gameStateSubject.next(this.gameState);
+  }
+
+  private sayRecipe(){
     this.btnService.disableButtons();
     this.gameState.currentProgress = [];
 
@@ -38,10 +46,12 @@ export class GameService {
         }else{
           this.btnService.enableButtons();
           this.gameState.currentProgress = [];
+          this.notifyGameStateChange();
         }
       });
       howl.play();
       this.gameState.currentProgress.push(btnValue);
+      this.notifyGameStateChange();
       window.scroll(0,document.body.scrollHeight);
     };
     
@@ -78,6 +88,8 @@ export class GameService {
     this.gameState.currentProgress = [];
     this.gameState.currentGoal = [];
 
+    this.notifyGameStateChange();
+
     this.newGameSound.howl.once('end', ()=>{
       this.processNewRound();
       this.btnService.enableButtons();
@@ -98,6 +110,7 @@ export class GameService {
     const newRound = () => {
       this.gameState.currentGoal.push(Math.floor(Math.random() * this.btnService.buttonComponents.length));
       this.gameState.currentProgress = [];
+      this.notifyGameStateChange();
       this.sayRecipe();
     }
 
@@ -116,6 +129,7 @@ export class GameService {
       this.gameState.gameStarted = false;
       this.gameState.currentGoal = [];
       this.gameState.currentProgress = [];
+      this.notifyGameStateChange();
     });
     this.gameOverSound.howl.play();
     this.btnService.disableButtons();

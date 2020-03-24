@@ -13,8 +13,11 @@ export class GameAreaComponent implements OnInit, OnDestroy {
 
   private faceSrcSubscription :Subscription;
   public faceSrc :string;
+  private gameStateSubscription: Subscription;
+  public currentProgress :Array<number> = [];
+  public gameStarted: boolean = false;
 
-  constructor(public gameService: GameService, 
+  constructor(private gameService: GameService, 
     public btnService: ButtonService,
     public faceService: FaceService) { 
       
@@ -22,10 +25,15 @@ export class GameAreaComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.faceSrcSubscription = this.faceService.faceSubject.subscribe(next => this.faceSrc=next);
+    this.gameService.gameStateSubject.subscribe(gameState => {
+      this.currentProgress = gameState.currentProgress;
+      this.gameStarted = gameState.gameStarted;
+    });
   }
 
   ngOnDestroy(): void{
     this.faceSrcSubscription.unsubscribe();
+    this.gameStateSubscription.unsubscribe();
   }
 
   onClickStart(){
