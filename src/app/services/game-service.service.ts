@@ -16,9 +16,9 @@ export class GameService {
   private newRoundSound :FeinmannSound;
 
   constructor(private btnService : ButtonService, faceService: FaceService) { 
-    this.newGameSound = new FeinmannSound('/assets/audio/me haces el sanguchito.wav',faceService);
-    this.gameOverSound = new FeinmannSound('/assets/audio/no la verda que no.wav',faceService);
-    this.newRoundSound = new FeinmannSound('/assets/audio/notegustaasi.wav',faceService);
+    this.newGameSound = new FeinmannSound('assets/audio/me haces el sanguchito.wav',faceService);
+    this.gameOverSound = new FeinmannSound('assets/audio/no la verda que no.wav',faceService);
+    this.newRoundSound = new FeinmannSound('assets/audio/notegustaasi.wav',faceService);
   }
 
   public sayRecipe(){

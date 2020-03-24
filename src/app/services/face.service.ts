@@ -6,8 +6,8 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class FaceService {
 
-  private closedMouthSrc = "/assets/img/feinmann.png";
-  private openMouthSrc = "/assets/img/feinmannboca.png";
+  private closedMouthSrc = "assets/img/feinmann.png";
+  private openMouthSrc = "assets/img/feinmannboca.png";
 
   private faceSrcSubject :BehaviorSubject<string>;
   private changeInterval = 200;
