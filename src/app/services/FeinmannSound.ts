@@ -7,6 +7,7 @@ export default class FeinmannSound{
     constructor(soundSource :string, private faceService: FaceService){
         this._howl = new Howl({
             src:[soundSource],
+            preload: true,
             onplay: () => faceService.startTalking(),
             onend: () => faceService.stopTalking()
         });
