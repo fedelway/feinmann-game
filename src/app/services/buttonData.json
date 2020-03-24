@@ -16,9 +16,9 @@
             "audioSrc": "assets/audio/milanesa.wav"
         },
         {
-            "iconSrc": "assets/icons/pan.png",
-            "imgSrc": "assets/ingredients/panl.png",
-            "audioSrc": "assets/audio/pan.wav"
+            "iconSrc": "assets/icons/lechuga.png",
+            "imgSrc": "assets/ingredients/lechugal.png",
+            "audioSrc": "assets/audio/lechuga.wav"
         }
     ]
 }

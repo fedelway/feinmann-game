@@ -15,6 +15,8 @@ export class GameService {
   private gameOverSound :FeinmannSound;
   private newRoundSound :FeinmannSound;
 
+  private isFirstRound = false;
+
   constructor(private btnService : ButtonService, faceService: FaceService) { 
     this.newGameSound = new FeinmannSound('assets/audio/me haces el sanguchito.wav',faceService);
     this.gameOverSound = new FeinmannSound('assets/audio/no la verda que no.wav',faceService);
@@ -62,19 +64,21 @@ export class GameService {
     howl.once('end', ()=>{
       if(this.gameState.currentProgress.length === this.gameState.currentGoal.length){
         this.processNewRound();
+      }else{
+        this.btnService.enableButtons();
       }
-      this.btnService.enableButtons();
     })
     howl.play();
     setTimeout( () => window.scroll(0,document.body.scrollHeight), 0);
   }
 
   public startGame(){
+    this.isFirstRound = true;
     this.gameState.gameStarted = true;
     this.gameState.currentProgress = [];
     this.gameState.currentGoal = [];
 
-    this.newGameSound.howl.on('end', ()=>{
+    this.newGameSound.howl.once('end', ()=>{
       this.processNewRound();
       this.btnService.enableButtons();
     });
@@ -90,21 +94,30 @@ export class GameService {
   }
 
   private processNewRound(){
-    this.newRoundSound.howl.once('end', ()=>{
+
+    const newRound = () => {
       this.gameState.currentGoal.push(Math.floor(Math.random() * this.btnService.buttonComponents.length));
       this.gameState.currentProgress = [];
       this.sayRecipe();
-    });
-    this.newRoundSound.howl.play();
+    }
+
+    if(this.isFirstRound){
+      this.isFirstRound = false;
+      newRound();
+    }else{
+      this.newRoundSound.howl.once('end', newRound);
+      this.newRoundSound.howl.play();
+      this.btnService.disableButtons();
+    }
   }
 
   private gameOver(){
     this.gameOverSound.howl.once('end', () => {
       this.gameState.gameStarted = false;
       this.gameState.currentGoal = [];
+      this.gameState.currentProgress = [];
     });
     this.gameOverSound.howl.play();
     this.btnService.disableButtons();
-    console.log("Game Over!");
   }
 }
