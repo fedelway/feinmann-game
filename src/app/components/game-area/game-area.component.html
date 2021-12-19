@@ -1,4 +1,14 @@
 <ng-container *ngIf="!this.gameStarted">
+    <div class= "container has-text-centered">
+        <figure class="image is-64x64 is-inline-block">
+            <img src="assets/Speaker_Icon.svg"/>
+        </figure>
+        <p class="is-size-7">
+            Audio is highly recommended
+            <br/>
+            (En serio, sin audio no tiene gracia)
+        </p>
+    </div>
     <button class="button" (click)="onClickStart()">
         Start
     </button>
